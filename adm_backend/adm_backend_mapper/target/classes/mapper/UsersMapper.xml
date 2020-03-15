@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zju.adm.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="org.zju.adm.pojo.Users">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="job_number" jdbcType="VARCHAR" property="jobNumber" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="gender" jdbcType="TINYINT" property="gender" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="account_id" jdbcType="INTEGER" property="accountId" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="founder" jdbcType="INTEGER" property="founder" />
+  </resultMap>
+</mapper>

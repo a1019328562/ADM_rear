@@ -1,0 +1,4 @@
+org/zju/adm/api/controller/PassportController.class
+org/zju/adm/api/config/GlobalExceptionHandler.class
+org/zju/adm/api/config/APIDocuments.class
+org/zju/adm/api/config/CorsConfig.class
