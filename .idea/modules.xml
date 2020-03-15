@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ADM_rear.iml" filepath="$PROJECT_DIR$/ADM_rear.iml" />
+      <module fileurl="file://$PROJECT_DIR$/adm_backend/adm_backend.iml" filepath="$PROJECT_DIR$/adm_backend/adm_backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/adm_backend/adm_backend_api/adm_backend_api.iml" filepath="$PROJECT_DIR$/adm_backend/adm_backend_api/adm_backend_api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/adm_backend/adm_backend_common/adm_backend_common.iml" filepath="$PROJECT_DIR$/adm_backend/adm_backend_common/adm_backend_common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/adm_backend/adm_backend_mapper/adm_backend_mapper.iml" filepath="$PROJECT_DIR$/adm_backend/adm_backend_mapper/adm_backend_mapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/adm_backend/adm_backend_pojo/adm_backend_pojo.iml" filepath="$PROJECT_DIR$/adm_backend/adm_backend_pojo/adm_backend_pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/adm_backend/adm_backend_service/adm_backend_service.iml" filepath="$PROJECT_DIR$/adm_backend/adm_backend_service/adm_backend_service.iml" />
+    </modules>
+  </component>
+</project>

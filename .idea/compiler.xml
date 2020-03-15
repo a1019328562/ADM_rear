@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="adm_backend_common" />
+        <module name="adm_backend_mapper" />
+        <module name="adm_backend_api" />
+        <module name="adm_backend_pojo" />
+        <module name="adm_backend_service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="adm_backend" target="1.8" />
+      <module name="adm_backend_api" target="1.8" />
+      <module name="adm_backend_common" target="1.8" />
+      <module name="adm_backend_mapper" target="1.8" />
+      <module name="adm_backend_pojo" target="1.8" />
+      <module name="adm_backend_service" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="adm_backend_api" options="-parameters" />
+      <module name="adm_backend_common" options="-parameters" />
+      <module name="adm_backend_mapper" options="-parameters" />
+      <module name="adm_backend_pojo" options="-parameters" />
+      <module name="adm_backend_service" options="-parameters" />
+    </option>
+  </component>
+</project>
