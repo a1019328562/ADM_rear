@@ -41,7 +41,7 @@ public class JWTUtil {
                 //客户名称
                 .claim("userName", userName)
                 //客户端浏览器信息
-                .claim("userAgent", identities[0])
+                //.claim("userAgent", identities[0])
                 //Signature
                 .signWith(signatureAlgorithm, signingKey);
         //添加Token过期时间
@@ -92,9 +92,10 @@ public class JWTUtil {
             //客户名称
             retMap.put("userName", claims.get("userName"));
             //客户端浏览器信息
-            retMap.put("userAgent", claims.get("userAgent"));
+            //retMap.put("userAgent", claims.get("userAgent"));
             //刷新JWT
-            retMap.put("freshToken", generateJWT(decryptUserId, (String)claims.get("userName"), (String)claims.get("userAgent"), (String)claims.get("domainName")));
+            //retMap.put("freshToken", generateJWT(decryptUserId, (String)claims.get("userName"), (String)claims.get("userAgent"), (String)claims.get("domainName")));
+            retMap.put("freshToken", generateJWT(decryptUserId, (String)claims.get("userName")));
         }else {
             throw new BusinessException(CommonError.JWT_NULL);
         }
