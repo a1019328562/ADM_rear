@@ -3,6 +3,7 @@ package org.zju.adm.api.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.zju.adm.common.CommonResult;
@@ -12,6 +13,7 @@ import org.zju.adm.common.exception.BusinessException;
 import org.zju.adm.common.exception.CommonError;
 import org.zju.adm.pojo.Account;
 import org.zju.adm.pojo.Users;
+import org.zju.adm.pojo.bo.UserAccountBO;
 import org.zju.adm.pojo.bo.UserBO;
 import org.zju.adm.service.UserService;
 
@@ -63,5 +65,25 @@ public class PassportController {
             return CommonResult.failure(CommonError.ACCOUNT_PASSWORD_NOT_MATCH);
         }
         return CommonResult.success(result);
+    }
+
+    @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
+    @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
+    public CommonResult login(@RequestBody UserAccountBO userAccountBO) throws Exception {
+        Account account = new Account();
+        BeanUtils.copyProperties(userAccountBO,account);
+        ValidationResult validationResult = validatorBean.validate(account);
+        if(validationResult.isHasErrors()){
+            throw new BusinessException(CommonError.PARAMETER_VALIDATION_ERROR, validationResult.getErrMsg());
+        }
+        boolean isExist = userService.queryAccountIsExist(account.getAccountName());
+        if(isExist){
+            return CommonResult.failure(CommonError.ACCOUNT_EXISTS);
+        }
+        int userId = userService.insertUser(userAccountBO);
+        if(userId<=0){
+            return CommonResult.failure(CommonError.PARAMETER_VALIDATION_ERROR);
+        }
+        return CommonResult.success(userAccountBO);
     }
 }

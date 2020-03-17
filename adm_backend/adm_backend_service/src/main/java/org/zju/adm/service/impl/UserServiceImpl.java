@@ -1,6 +1,7 @@
 package org.zju.adm.service.impl;
 
 import com.fasterxml.jackson.databind.util.BeanUtil;
+import org.apache.catalina.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import org.zju.adm.mapper.UsersMapper;
 import org.zju.adm.pojo.Account;
 import org.zju.adm.pojo.UserType;
 import org.zju.adm.pojo.Users;
+import org.zju.adm.pojo.bo.UserAccountBO;
 import org.zju.adm.pojo.bo.UserBO;
 import org.zju.adm.service.UserService;
 import tk.mybatis.mapper.entity.Example;
@@ -78,5 +80,19 @@ public class UserServiceImpl implements UserService {
         String jwt = JWTUtil.generateJWT(user.getId().toString(), result.getUserName());
         result.setJWT(jwt);
         return result;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public int insertUser(UserAccountBO userAccountBO) {
+        Account account = new Account();
+        Users users = new Users();
+        BeanUtils.copyProperties(userAccountBO, account);
+        BeanUtils.copyProperties(userAccountBO, users);
+        int accountId = accountMapper.insert(account);
+        users.setAccountId(accountId);
+        users.setGender(userAccountBO.getGender());
+        int userId = usersMapper.insert(users);
+        return userId;
     }
 }
