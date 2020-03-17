@@ -1,5 +1,6 @@
 /Users/tiamo/Documents/Code/JavaProjects/ADM_rear/adm_backend/adm_backend_api/src/main/java/org/zju/adm/api/config/CorsConfig.java
 /Users/tiamo/Documents/Code/JavaProjects/ADM_rear/adm_backend/adm_backend_api/src/main/java/org/zju/adm/api/controller/PassportController.java
+/Users/tiamo/Documents/Code/JavaProjects/ADM_rear/adm_backend/adm_backend_api/src/main/java/org/zju/adm/api/config/WebMVCConfig.java
 /Users/tiamo/Documents/Code/JavaProjects/ADM_rear/adm_backend/adm_backend_api/src/main/java/org/zju/adm/api/Application.java
 /Users/tiamo/Documents/Code/JavaProjects/ADM_rear/adm_backend/adm_backend_api/src/main/java/org/zju/adm/api/config/APIDocuments.java
 /Users/tiamo/Documents/Code/JavaProjects/ADM_rear/adm_backend/adm_backend_api/src/main/java/org/zju/adm/api/config/GlobalExceptionHandler.java

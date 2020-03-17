@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="adm_backend_api:war">
+    <output-path>$PROJECT_DIR$/adm_backend/adm_backend_api/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>adm_backend_api</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="adm_backend_api-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="adm_backend_api:war exploded" />
+    </root>
+  </artifact>
+</component>
