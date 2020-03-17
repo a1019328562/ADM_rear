@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
         Example.Criteria accountCriteria = accountExample.createCriteria();
         accountCriteria.andEqualTo("accountName", account.getAccountName());
         accountCriteria.andEqualTo("password", CommonUtil.getMD5Digest(account.getPassword()));
-        Account loginAccount = accountMapper.selectOneByExample(accountCriteria);
+        Account loginAccount = accountMapper.selectOneByExample(accountExample);
         if(null==loginAccount){
             return null;
         }

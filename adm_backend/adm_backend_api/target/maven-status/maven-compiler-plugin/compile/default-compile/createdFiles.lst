@@ -1,4 +1,6 @@
 org/zju/adm/api/controller/PassportController.class
 org/zju/adm/api/config/GlobalExceptionHandler.class
+org/zju/adm/api/Application.class
+org/zju/adm/api/config/WebMVCConfig.class
 org/zju/adm/api/config/APIDocuments.class
 org/zju/adm/api/config/CorsConfig.class

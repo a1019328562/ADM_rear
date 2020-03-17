@@ -1,10 +1,13 @@
 package org.zju.adm.common.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * ClassName: YesOrNo
  * Description: TODO
  * Created by tiamo on 15/3/2020 10:50 上午
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Gender {
     WOMAN(0, "女"),
     MAN(1, "男"),

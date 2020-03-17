@@ -1,10 +1,10 @@
 package org.zju.adm.api.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.zju.adm.common.CommonResult;
 import org.zju.adm.common.component.validator.ValidationResult;
@@ -15,6 +15,7 @@ import org.zju.adm.pojo.Account;
 import org.zju.adm.pojo.Users;
 import org.zju.adm.pojo.bo.UserAccountBO;
 import org.zju.adm.pojo.bo.UserBO;
+import org.zju.adm.pojo.vo.AccountVO;
 import org.zju.adm.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,8 +38,10 @@ public class PassportController {
     private ValidatorBean validatorBean;
 
     @ApiOperation(value = "账户名是否存在", notes = "账户名是否存在", httpMethod = "GET")
-    @RequestMapping(value = "/accountIsExist", method = RequestMethod.GET)
-    public CommonResult accountIsExist(@RequestParam String accountName) {
+    @ApiImplicitParam(name = "accountName", value = "账户名", required = true, dataType = "String", paramType = "query")
+    @RequestMapping(value = "/accountIsExist", method = RequestMethod.GET, produces =  MediaType.APPLICATION_JSON_VALUE)
+    public CommonResult accountIsExist(
+            @RequestParam String accountName) {
         // 1. 判断入参不能为空
         if (StringUtils.isBlank(accountName)) {
             return CommonResult.failure(CommonError.ACCOUNT_NULL_ERROR);
@@ -53,14 +56,15 @@ public class PassportController {
     }
 
     @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
-    @RequestMapping(value = "/accountIsExist", method = RequestMethod.POST)
-    public CommonResult login(@RequestBody Account account,
-                              HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/userLogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public CommonResult login(
+            @RequestBody AccountVO account,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
         ValidationResult validationResult = validatorBean.validate(account);
         if(validationResult.isHasErrors()){
             throw new BusinessException(CommonError.PARAMETER_VALIDATION_ERROR, validationResult.getErrMsg());
         }
-        UserBO result = userService.userLogin(account);
+        UserBO result = userService.userLogin(account.accountVOToAccount());
         if(null == result) {
             return CommonResult.failure(CommonError.ACCOUNT_PASSWORD_NOT_MATCH);
         }
