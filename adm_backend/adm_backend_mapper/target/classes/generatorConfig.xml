@@ -32,6 +32,9 @@
         <table tableName="users"/>
         <table tableName="user_type"/>
         <table tableName="account"/>
+        <table tableName="data"/>
+        <table tableName="data_label_type"/>
+        <table tableName="data_type"/>
 
     </context>
 </generatorConfiguration>

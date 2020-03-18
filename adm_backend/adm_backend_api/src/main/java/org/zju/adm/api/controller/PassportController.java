@@ -72,8 +72,8 @@ public class PassportController {
     }
 
     @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
-    @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
-    public CommonResult login(@RequestBody UserAccountBO userAccountBO) throws Exception {
+    @RequestMapping(value = "/userRegister", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public CommonResult register(@RequestBody UserAccountBO userAccountBO) throws Exception {
         Account account = new Account();
         BeanUtils.copyProperties(userAccountBO,account);
         ValidationResult validationResult = validatorBean.validate(account);
@@ -84,8 +84,8 @@ public class PassportController {
         if(isExist){
             return CommonResult.failure(CommonError.ACCOUNT_EXISTS);
         }
-        int userId = userService.insertUser(userAccountBO);
-        if(userId<=0){
+        int result = userService.insertUser(userAccountBO);
+        if(result<=0){
             return CommonResult.failure(CommonError.PARAMETER_VALIDATION_ERROR);
         }
         return CommonResult.success(userAccountBO);
