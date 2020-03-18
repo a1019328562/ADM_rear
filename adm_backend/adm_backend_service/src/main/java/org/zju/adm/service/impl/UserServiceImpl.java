@@ -84,15 +84,17 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public int insertUser(UserAccountBO userAccountBO) {
+    public int insertUser(UserAccountBO userAccountBO) throws Exception {
         Account account = new Account();
         Users users = new Users();
         BeanUtils.copyProperties(userAccountBO, account);
         BeanUtils.copyProperties(userAccountBO, users);
-        int accountId = accountMapper.insert(account);
-        users.setAccountId(accountId);
+        account.setPassword(CommonUtil.getMD5Digest(account.getPassword()));
+        accountMapper.insertReturnPK(account);
+        System.out.println(account.getId());
+        users.setAccountId((int)account.getId());
         users.setGender(userAccountBO.getGender());
-        int userId = usersMapper.insert(users);
-        return userId;
+        int count = usersMapper.insert(users);
+        return count;
     }
 }

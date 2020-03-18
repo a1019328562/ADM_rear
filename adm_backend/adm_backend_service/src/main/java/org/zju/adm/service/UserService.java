@@ -16,5 +16,5 @@ public interface UserService {
 
     UserBO userLogin(Account account) throws Exception;
 
-    int insertUser(UserAccountBO userAccountBO);
+    int insertUser(UserAccountBO userAccountBO) throws Exception;
 }
