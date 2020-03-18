@@ -58,7 +58,11 @@ public class UserServiceImpl implements UserService {
         if(null==loginAccount){
             return null;
         }
-        Users user = usersMapper.selectByPrimaryKey(loginAccount.getId());
+
+        Example userExample = new Example(Users.class);
+        Example.Criteria userCriteria = userExample.createCriteria();
+        userCriteria.andEqualTo("accountId", loginAccount.getId());
+        Users user = usersMapper.selectOneByExample(userExample);
         if(null == user){
             return null;
         }
