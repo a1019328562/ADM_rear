@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>异常检测系统</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="block m-t-xs font-bold">用户名XXX</span>
+                                <span class="text-muted text-xs block">菜单
+                                    <b class="caret"></b>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li>
+                                    <a class="dropdown-item" href="./profile.html">修改资料</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="./login.html">退出登录</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="./index.html">
+                            <i class="fa fa-th-large"></i>
+                            <span class="nav-label">样本管理</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="./model.html">
+                            <i class="fa fa-th-large"></i>
+                            <span class="nav-label">模型训练</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./anomaly.html">
+                            <i class="fa fa-th-large"></i>
+                            <span class="nav-label">异常检测</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./profile.html">
+                            <i class="fa fa-th-large"></i>
+                            <span class="nav-label">个人中心</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a href="./login.html">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>模型训练</h2>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>配置项</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <form method="get">
+                                    <div class="form-group  row">
+                                        <label class="col-sm-2 col-form-label">模型</label>
+
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" name="model">
+                                                <option>ARMA</option>
+                                                <option>IsolationForest</option>
+                                                <option>HOBS</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group  row">
+                                        <label class="col-sm-2 col-form-label">样本集</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" name="model">
+                                                <option>样本集1</option>
+                                                <option>样本集2</option>
+                                                <option>样本集3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <button class="btn btn-primary" type="button">开始训练</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>训练结果</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="graph" style="height: 500px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <!-- <div class="pull-right">
+                    10GB of
+                    <strong>250GB</strong> Free.
+                </div> -->
+                <div>
+                    <strong>Copyright</strong> Zhejiang University &copy; 2020
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <script src="js/echarts.min.js"></script>
+
+    <script>
+        function randomData() {
+            now = new Date(+now + oneDay);
+            value = value + Math.random() * 21 - 10;
+            return {
+                name: now.toString(),
+                value: [
+                    [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+                    Math.round(value)
+                ]
+            }
+        }
+
+        var myChart = echarts.init(document.getElementById('graph'));
+        var data = [];
+        var err = [];
+        var now = +new Date(1997, 9, 3);
+        var oneDay = 24 * 3600 * 1000;
+        var value = Math.random() * 1000;
+        for (var i = 0; i < 1000; i++) {
+            var rd = randomData()
+            data.push(rd);
+            if (i % 100 == 0)
+                err.push(rd);
+        }
+
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                formatter: function (params) {
+                    params = params[0];
+                    var date = new Date(params.name);
+                    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                },
+                axisPointer: {
+                    animation: false
+                }
+            },
+            xAxis: {
+                type: 'time',
+                splitLine: {
+                    show: false
+                }
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%'],
+                splitLine: {
+                    show: false
+                }
+            },
+            series: [{
+                name: '模拟数据',
+                type: 'line',
+                showSymbol: false,
+                hoverAnimation: false,
+                data: data,
+                itemStyle: {
+                    color: '#20c997'
+                }
+            }, {
+                name: '异常数据',
+                type: 'scatter',
+                showSymbol: false,
+                hoverAnimation: false,
+                symbol: 'pin',
+                symbolSize: 20,
+                data: err,
+                itemStyle: {
+                    color: 'red'
+                }
+            }]
+        };
+        myChart.setOption(option);
+        // setInterval(function () {
+
+        //     for (var i = 0; i < 100; i++) {
+        //         data.shift();
+        //         var rd = randomData();
+        //         data.push(rd);
+        //         if (i == 60) {
+        //             err.shift();
+        //             err.push(rd);
+        //         }
+        //     }
+
+        //     myChart.setOption(option);
+        //     myChart.setOption({
+        //         series: [{
+        //             data: data,
+        //             err: err
+        //         }]
+        //     });
+        // }, 1000);
+    </script>
+</body>
+
+</html>
