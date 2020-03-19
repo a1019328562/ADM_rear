@@ -1,3 +1,6 @@
-org\zju\adm\mapper\AccountMapper.class
-org\zju\adm\mapper\UserTypeMapper.class
+org\zju\adm\mapper\DataLabelTypeMapper.class
 org\zju\adm\mapper\UsersMapper.class
+org\zju\adm\mapper\DataMapper.class
+org\zju\adm\mapper\AccountMapper.class
+org\zju\adm\mapper\DataTypeMapper.class
+org\zju\adm\mapper\UserTypeMapper.class
