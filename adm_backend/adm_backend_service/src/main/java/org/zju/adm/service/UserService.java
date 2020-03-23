@@ -2,6 +2,7 @@ package org.zju.adm.service;
 
 import org.zju.adm.pojo.Account;
 import org.zju.adm.pojo.Users;
+import org.zju.adm.pojo.bo.UserAccountBO;
 import org.zju.adm.pojo.bo.UserBO;
 
 /**
@@ -14,4 +15,6 @@ public interface UserService {
     boolean queryAccountIsExist(String account);
 
     UserBO userLogin(Account account) throws Exception;
+
+    int insertUser(UserAccountBO userAccountBO) throws Exception;
 }

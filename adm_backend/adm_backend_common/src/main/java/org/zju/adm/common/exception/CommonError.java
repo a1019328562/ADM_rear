@@ -11,6 +11,8 @@ import org.zju.adm.common.base.BaseError;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum CommonError implements BaseError {
 
+    NO_SACH_TYPE_ERROR(30001,"无该参数类型"),
+
     // 通用的错误类型
     PARAMETER_VALIDATION_ERROR(10001, "参数不合法"),
     UNKNOWN_ERROR(10002, "未知错误"),

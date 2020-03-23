@@ -1,9 +1,5 @@
 package org.zju.adm.pojo;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 
 public class Account {
@@ -13,7 +9,6 @@ public class Account {
     @Column(name = "account_name")
     private String accountName;
 
-    @Column(name = "password")
     private String password;
 
     /**

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>异常检测系统</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="block m-t-xs font-bold">用户名XXX</span>
+                                <span class="text-muted text-xs block">菜单
+                                    <b class="caret"></b>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li>
+                                    <a class="dropdown-item" href="./profile.html">修改资料</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="./login.html">退出登录</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="./index.html">
+                            <i class="fa fa-th-large"></i>
+                            <span class="nav-label">样本管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./model.html">
+                            <i class="fa fa-th-large"></i>
+                            <span class="nav-label">模型训练</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="./anomaly.html">
+                            <i class="fa fa-th-large"></i>
+                            <span class="nav-label">异常检测</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./profile.html">
+                            <i class="fa fa-th-large"></i>
+                            <span class="nav-label">个人中心</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a href="./login.html">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>异常检测</h2>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>配置项</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <form method="get">
+                                    <div class="form-group  row">
+                                        <label class="col-sm-2 col-form-label">模型</label>
+
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" name="model">
+                                                <option>ARMA</option>
+                                                <option>IsolationForest</option>
+                                                <option>HOBS</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group  row">
+                                        <label class="col-sm-2 col-form-label">数据来源</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" name="model">
+                                                <option>时序数据源1</option>
+                                                <option>时序数据源2</option>
+                                                <option>时序数据源3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <button class="btn btn-primary" type="button">确认配置</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>实时监控</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="flot-chart">
+                                <div class="flot-chart-content" id="flot-line-chart-moving"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <!-- <div class="pull-right">
+                    10GB of
+                    <strong>250GB</strong> Free.
+                </div> -->
+                <div>
+                    <strong>Copyright</strong> Zhejiang University &copy; 2020
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <!-- Flot -->
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="js/plugins/flot/jquery.flot.time.js"></script>
+
+    <script>
+        window.onload = function () {
+            $(function () {
+
+                var container = $("#flot-line-chart-moving");
+
+                // Determine how many data points to keep based on the placeholder's initial size;
+                // this gives us a nice high-res plot while avoiding more than one point per pixel.
+
+                var maximum = container.outerWidth() / 2 || 300;
+
+                //
+
+                var data = [];
+
+                function getRandomData() {
+
+                    if (data.length) {
+                        data = data.slice(1);
+                    }
+
+                    while (data.length < maximum) {
+                        var previous = data.length ? data[data.length - 1] : 50;
+                        var y = previous + Math.random() * 10 - 5;
+                        data.push(y < 0 ? 0 : y > 100 ? 100 : y);
+                    }
+
+                    // zip the generated y values with the x values
+
+                    var res = [];
+                    for (var i = 0; i < data.length; ++i) {
+                        res.push([i, data[i]])
+                    }
+
+                    return res;
+                }
+
+                series = [{
+                    data: getRandomData(),
+                    lines: {
+                        fill: true
+                    }
+                }];
+
+
+                var plot = $.plot(container, series, {
+                    grid: {
+
+                        color: "#999999",
+                        tickColor: "#D4D4D4",
+                        borderWidth: 0,
+                        minBorderMargin: 20,
+                        labelMargin: 10,
+                        backgroundColor: {
+                            colors: ["#ffffff", "#ffffff"]
+                        },
+                        margin: {
+                            top: 8,
+                            bottom: 20,
+                            left: 20
+                        },
+                        markings: function (axes) {
+                            var markings = [];
+                            var xaxis = axes.xaxis;
+                            for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
+                                markings.push({
+                                    xaxis: {
+                                        from: x,
+                                        to: x + xaxis.tickSize
+                                    },
+                                    color: "#fff"
+                                });
+                            }
+                            return markings;
+                        }
+                    },
+                    colors: ["#1ab394"],
+                    xaxis: {
+                        tickFormatter: function () {
+                            return "";
+                        }
+                    },
+                    yaxis: {
+                        min: 0,
+                        max: 110
+                    },
+                    legend: {
+                        show: true
+                    }
+                });
+
+                // Update the random dataset at 25FPS for a smoothly-animating chart
+
+                setInterval(function updateRandom() {
+                    series[0].data = getRandomData();
+                    plot.setData(series);
+                    plot.draw();
+                }, 100);
+
+            });
+        }
+    </script>
+</body>
+
+</html>

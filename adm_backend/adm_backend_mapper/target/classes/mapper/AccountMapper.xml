@@ -9,4 +9,7 @@
     <result column="account_name" jdbcType="VARCHAR" property="accountName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
   </resultMap>
+  <insert id="insertReturnPK" keyProperty="id" parameterType="org.zju.adm.pojo.Account" useGeneratedKeys="true">
+        INSERT INTO account (account_name, password) VALUES(#{accountName}, #{password})
+  </insert>
 </mapper>
