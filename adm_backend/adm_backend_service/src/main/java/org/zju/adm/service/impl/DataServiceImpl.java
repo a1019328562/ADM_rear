@@ -52,6 +52,11 @@ public class DataServiceImpl implements DataService {
         return dataMapper.selectAll();
     }
 
+    @Override
+    public List<DataType> selectAllDataType() {
+        return dataTypeMapper.selectAll();
+    }
+
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int insertDataList(List dataList) {

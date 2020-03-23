@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.zju.adm.common.CommonResult;
 import org.zju.adm.common.exception.CommonError;
 import org.zju.adm.pojo.Data;
+import org.zju.adm.pojo.DataType;
 import org.zju.adm.service.DataService;
 
 import java.util.List;
@@ -54,9 +55,16 @@ public class DataController {
     }
 
     @ApiOperation(value = "查询所有数据", notes = "查询所有数据", httpMethod = "GET")
-    @RequestMapping(value = "/selectAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/selectAllData", method = RequestMethod.GET)
     public CommonResult selectAllData(){
         List<Data> result = dataService.selectAllData();
+        return CommonResult.success(result);
+    }
+
+    @ApiOperation(value = "查询所有样本集", notes = "查询所有样本集", httpMethod = "GET")
+    @RequestMapping(value = "/selectAllDataType", method = RequestMethod.GET)
+    public CommonResult selectAllDataType(){
+        List<DataType> result = dataService.selectAllDataType();
         return CommonResult.success(result);
     }
 

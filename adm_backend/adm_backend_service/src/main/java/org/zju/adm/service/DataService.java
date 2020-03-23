@@ -1,6 +1,7 @@
 package org.zju.adm.service;
 
 import org.zju.adm.pojo.Data;
+import org.zju.adm.pojo.DataType;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface DataService {
     boolean queryDataTypeIsExist(Byte dataTypeId);
     boolean queryDataLabelTypeIsExist(Byte dataLabelTypeId);
     List<Data> selectAllData();
+    List<DataType> selectAllDataType();
 }
