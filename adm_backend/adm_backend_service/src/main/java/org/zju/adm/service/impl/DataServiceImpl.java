@@ -12,11 +12,7 @@ import org.zju.adm.service.DataService;
 
 import java.util.List;
 
-/**
- * ClassName: UserServiceImpl
- * Description: TODO
- * Created by tiamo on 15/3/2020 11:56 上午
- */
+
 @Service
 public class DataServiceImpl implements DataService {
 

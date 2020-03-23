@@ -5,6 +5,8 @@ import org.zju.adm.pojo.Users;
 import org.zju.adm.pojo.bo.UserAccountBO;
 import org.zju.adm.pojo.bo.UserBO;
 
+import java.util.List;
+
 /**
  * ClassName: UserService
  * Description: TODO
@@ -17,4 +19,10 @@ public interface UserService {
     UserBO userLogin(Account account) throws Exception;
 
     int insertUser(UserAccountBO userAccountBO) throws Exception;
+
+    boolean queryUserTypeIsExist(Byte userTypeId);
+
+    int editUserProfile(Users users);
+
+    List<Users> selectAllUsers();
 }

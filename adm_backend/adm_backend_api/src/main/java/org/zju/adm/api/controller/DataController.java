@@ -55,7 +55,7 @@ public class DataController {
 
     @ApiOperation(value = "查询所有数据", notes = "查询所有数据", httpMethod = "GET")
     @RequestMapping(value = "/selectAll", method = RequestMethod.GET)
-    public CommonResult insertData(){
+    public CommonResult selectAllData(){
         List<Data> result = dataService.selectAllData();
         return CommonResult.success(result);
     }

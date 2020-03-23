@@ -19,6 +19,8 @@ import org.zju.adm.pojo.bo.UserBO;
 import org.zju.adm.service.UserService;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
+
 /**
  * ClassName: UserServiceImpl
  * Description: TODO
@@ -98,5 +100,25 @@ public class UserServiceImpl implements UserService {
         users.setGender(userAccountBO.getGender());
         int count = usersMapper.insert(users);
         return count;
+    }
+
+    @Override
+    public boolean queryUserTypeIsExist(Byte userTypeId) {
+        Example userTypeExample = new Example(UserType.class);
+        Example.Criteria userTypeCriteria = userTypeExample.createCriteria();
+        userTypeCriteria.andEqualTo("id", userTypeId);
+        UserType userType = userTypeMapper.selectOneByExample(userTypeExample);
+        return userType != null;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public int editUserProfile(Users users){
+        return usersMapper.updateByPrimaryKeySelective(users);
+    }
+
+    @Override
+    public List<Users> selectAllUsers() {
+        return usersMapper.selectAll();
     }
 }
