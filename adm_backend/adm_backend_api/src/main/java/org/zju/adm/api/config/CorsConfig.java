@@ -23,7 +23,7 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         // 允许访问的源地址
         configuration.addAllowedOrigin("http://localhost:8000");
-        configuration.addAllowedOrigin("http://116.62.55.220:8000");
+        configuration.addAllowedOrigin("http://116.62.55.220");
         configuration.setAllowCredentials(true);
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
