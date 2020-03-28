@@ -1,3 +1,5 @@
+org\zju\adm\service\ModelTypeService.class
+org\zju\adm\service\impl\ModelTypeServiceImpl.class
 org\zju\adm\service\impl\DataServiceImpl.class
 org\zju\adm\service\UserService.class
 org\zju\adm\service\DataService.class

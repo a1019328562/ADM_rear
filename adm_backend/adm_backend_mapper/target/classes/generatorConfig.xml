@@ -29,12 +29,13 @@
         <javaClientGenerator targetPackage="org.zju.adm.mapper" targetProject="src/main/java" type="XMLMAPPER"/>
 
         <!-- 数据库表 -->
-        <table tableName="users"/>
-        <table tableName="user_type"/>
-        <table tableName="account"/>
-        <table tableName="data"/>
-        <table tableName="data_label_type"/>
-        <table tableName="data_type"/>
+<!--        <table tableName="users"/>-->
+<!--        <table tableName="user_type"/>-->
+<!--        <table tableName="account"/>-->
+<!--        <table tableName="data"/>-->
+<!--        <table tableName="data_label_type"/>-->
+<!--        <table tableName="data_type"/>-->
+        <table tableName="model_type"/>
 
     </context>
 </generatorConfiguration>

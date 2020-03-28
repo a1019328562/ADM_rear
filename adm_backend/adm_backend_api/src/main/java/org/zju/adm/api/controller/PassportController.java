@@ -12,6 +12,8 @@ import org.zju.adm.common.component.validator.ValidatorBean;
 import org.zju.adm.common.exception.BusinessException;
 import org.zju.adm.common.exception.CommonError;
 import org.zju.adm.pojo.Account;
+import org.zju.adm.pojo.Data;
+import org.zju.adm.pojo.UserType;
 import org.zju.adm.pojo.Users;
 import org.zju.adm.pojo.bo.UserAccountBO;
 import org.zju.adm.pojo.bo.UserBO;
@@ -20,6 +22,7 @@ import org.zju.adm.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * ClassName: UserController
@@ -90,5 +93,23 @@ public class PassportController {
             return CommonResult.failure(CommonError.PARAMETER_VALIDATION_ERROR);
         }
         return CommonResult.success(userAccountBO);
+    }
+
+    @ApiOperation(value = "修改用户信息", notes = "修改用户信息", httpMethod = "POST")
+    @RequestMapping(value = "/editUserProfile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public CommonResult editUserProfile(@RequestBody Users users){
+        boolean userTypeIsExist = userService.queryUserTypeIsExist(users.getUserType());
+        if(!userTypeIsExist){
+            return CommonResult.failure(CommonError.PARAMETER_VALIDATION_ERROR);
+        }
+        userService.editUserProfile(users);
+        return CommonResult.success(users);
+    }
+
+    @ApiOperation(value = "获取用户", notes = "获取用户", httpMethod = "GET")
+    @RequestMapping(value = "/selectAllUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public CommonResult selectAllUser(){
+        List<Users> result = userService.selectAllUsers();
+        return CommonResult.success(result);
     }
 }
