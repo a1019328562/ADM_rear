@@ -22,8 +22,9 @@ public class CorsConfig {
     public CorsFilter corsFilter(){
         CorsConfiguration configuration = new CorsConfiguration();
         // 允许访问的源地址
-        configuration.addAllowedOrigin("http://localhost:8000");
+        configuration.addAllowedOrigin("http://localhost:8080");
         configuration.addAllowedOrigin("http://116.62.55.220");
+        configuration.addAllowedOrigin("http://adm.ssdcxy.cn");
         configuration.setAllowCredentials(true);
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
