@@ -13,6 +13,7 @@ import javax.persistence.Id;
  * Created by tiamo on 15/3/2020 4:17 下午
  */
 public class UserBO {
+    private Integer id;
     private String jobNumber;
     private String userName;
     private Gender gender;
@@ -21,6 +22,14 @@ public class UserBO {
     private UserType userType;
     private Users founder;
     private String JWT;     // JsonWebToken，如设置@LoginPermission,则需在HTTP请求的headers添加User-Token:JWT
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getJobNumber() {
         return jobNumber;

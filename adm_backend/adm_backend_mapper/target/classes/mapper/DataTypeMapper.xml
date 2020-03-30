@@ -9,4 +9,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
+  <insert id="insertDataTypeReturnPK" keyProperty="id" parameterType="org.zju.adm.pojo.DataType" useGeneratedKeys="true" >
+        INSERT INTO data_type (name, description) VALUES(#{name}, #{description})
+  </insert>
 </mapper>
