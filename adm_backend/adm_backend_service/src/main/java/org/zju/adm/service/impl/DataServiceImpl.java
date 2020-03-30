@@ -9,6 +9,7 @@ import org.zju.adm.pojo.Data;
 import org.zju.adm.pojo.DataLabelType;
 import org.zju.adm.pojo.DataType;
 import org.zju.adm.service.DataService;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -41,9 +42,26 @@ public class DataServiceImpl implements DataService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public boolean queryDataLabelTypeIsExist(Byte dataLabelTypeId) {
-        DataLabelType dataLabelType = dataLabelTypeMapper.selectByPrimaryKey(dataLabelTypeId);
-        return dataLabelType != null;
+    public Byte queryDataTypeIdByName(String name) {
+        Example dataTypeExample = new Example(DataType.class);
+        Example.Criteria dataTypeCriteria = dataTypeExample.createCriteria();
+        dataTypeCriteria.andEqualTo("name", name);
+        DataType dataType=  dataTypeMapper.selectOneByExample(dataTypeExample);
+        return dataType.getId();
+    }
+
+    @Override
+    public boolean queryDataTypeIsExistByName(String name) {
+        Example dataTypeExample = new Example(DataType.class);
+        Example.Criteria dataTypeCriteria = dataTypeExample.createCriteria();
+        dataTypeCriteria.andEqualTo("name", name);
+        DataType dataType=  dataTypeMapper.selectOneByExample(dataTypeExample);
+        return dataType!=null;
+    }
+
+    @Override
+    public int insertDataType(DataType dataType) {
+        return dataTypeMapper.insert(dataType);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -52,6 +70,16 @@ public class DataServiceImpl implements DataService {
         return dataMapper.selectAll();
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public List<Data> selectAppointedData(Byte dataTypeId) {
+        Example dataExample = new Example(Data.class);
+        Example.Criteria dataCriteria = dataExample.createCriteria();
+        dataCriteria.andEqualTo("dataTypeId", dataTypeId);
+        return dataMapper.selectByExample(dataExample);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public List<DataType> selectAllDataType() {
         return dataTypeMapper.selectAll();

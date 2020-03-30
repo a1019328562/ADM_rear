@@ -2,6 +2,7 @@ package org.zju.adm.api.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import org.zju.adm.common.CommonResult;
 import org.zju.adm.common.exception.CommonError;
 import org.zju.adm.pojo.Data;
 import org.zju.adm.pojo.DataType;
+import org.zju.adm.pojo.bo.DataListBO;
 import org.zju.adm.service.DataService;
 
 import java.util.List;
@@ -41,13 +43,27 @@ public class DataController {
 
     @ApiOperation(value = "插入数据集", notes = "插入数据集", httpMethod = "POST")
     @RequestMapping(value = "/insertDataList", method = RequestMethod.POST, produces =  MediaType.APPLICATION_JSON_VALUE)
-    public CommonResult insertDataList(@RequestBody List<Data> datalist){
-        for (Data data:datalist) {
-            if(!canInsert(data)){
-                return CommonResult.failure(CommonError.NO_SACH_TYPE_ERROR);
-            }
+    public CommonResult insertDataList(@RequestBody DataListBO dataListBO){
+        if(dataListBO==null){
+            return CommonResult.failure(CommonError.PARAMETER_IS_NULL);
         }
-        int result = dataService.insertDataList(datalist);
+        String name = dataListBO.getName();
+        boolean dataTypeIsExist = dataService.queryDataTypeIsExistByName(name);
+        if(dataTypeIsExist){
+            return CommonResult.failure(CommonError.DATATYPE_IS_EXIST);
+        }
+        DataType dataType = new DataType();
+        BeanUtils.copyProperties(dataListBO,dataType);
+        int result = dataService.insertDataType(dataType);
+        if(result<=0){
+            return CommonResult.failure(CommonError.UNKNOWN_ERROR);
+        }
+        Byte dataTypeId = dataService.queryDataTypeIdByName(name);
+        List<Data> datalist= dataListBO.getDataList();
+        for (Data data:datalist) {
+            data.setDataTypeId(dataTypeId);
+        }
+        result = dataService.insertDataList(datalist);
         if (result<=0){
             return CommonResult.failure(CommonError.OPERATION_ERROR);
         }
@@ -68,12 +84,24 @@ public class DataController {
         return CommonResult.success(result);
     }
 
+    @ApiOperation(value = "获取指定数据集的数据", notes = "获取指定数据集的数据", httpMethod = "GET")
+    @RequestMapping(value = "/selectAppointedData", method = RequestMethod.GET)
+    public CommonResult selectAppointedData(@RequestParam String dataTypeName){
+        boolean dataTypeIsExist = dataService.queryDataTypeIsExistByName(dataTypeName);
+        if(!dataTypeIsExist){
+            return CommonResult.failure(CommonError.DATATYPE_IS_NOT_EXIST);
+        }
+        Byte dataTypeId = dataService.queryDataTypeIdByName(dataTypeName);
+        List<Data> result = dataService.selectAppointedData(dataTypeId);
+        return CommonResult.success(result);
+    }
+
     private boolean canInsert(Data data){
         Byte dataTypeId = data.getDataTypeId();
-        Byte dataMarkedLabelId = data.getDataMarkedLabelId();
+//        Byte dataMarkedLabelId = data.getDataMarkedLabelId();
         boolean dataTypeIsExist = dataService.queryDataTypeIsExist(dataTypeId);
-        boolean dataMarkedLabelIsExist = dataService.queryDataLabelTypeIsExist(dataMarkedLabelId);
-        return dataTypeIsExist&&dataMarkedLabelIsExist;
+//        boolean dataMarkedLabelIsExist = dataService.queryDataLabelTypeIsExist(dataMarkedLabelId);
+        return dataTypeIsExist;
     }
 
 }

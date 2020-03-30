@@ -14,7 +14,11 @@ public interface DataService {
     int insertData(Data data);
     int insertDataList(List<Data> dataList);
     boolean queryDataTypeIsExist(Byte dataTypeId);
-    boolean queryDataLabelTypeIsExist(Byte dataLabelTypeId);
+    Byte queryDataTypeIdByName(String name);
+    boolean queryDataTypeIsExistByName(String dataListName);
+    int insertDataType(DataType dataType);
     List<Data> selectAllData();
+    List<Data> selectAppointedData(Byte dataTypeId);
     List<DataType> selectAllDataType();
+
 }

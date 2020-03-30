@@ -12,6 +12,9 @@ import org.zju.adm.common.base.BaseError;
 public enum CommonError implements BaseError {
 
     NO_SACH_TYPE_ERROR(30001,"无该参数类型"),
+    PARAMETER_IS_NULL(30002,"参数为空"),
+    DATATYPE_IS_EXIST(30003,"数据类型已经存在"),
+    DATATYPE_IS_NOT_EXIST(30004,"数据类型不存在"),
 
     // 通用的错误类型
     PARAMETER_VALIDATION_ERROR(10001, "参数不合法"),
