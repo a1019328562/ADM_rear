@@ -1,10 +1,16 @@
 package org.zju.adm.common.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.codec.binary.Base64;
+import org.zju.adm.common.constrant.GlobalConstant;
+import org.zju.adm.*;
+import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.security.MessageDigest;
 
 public class CommonUtil {
-
 	/**
 	 * 
 	 * @Title: MD5Utils.java
@@ -16,4 +22,5 @@ public class CommonUtil {
 		String digest = Base64.encodeBase64String(md5.digest(strValue.getBytes()));
 		return digest;
 	}
+
 }

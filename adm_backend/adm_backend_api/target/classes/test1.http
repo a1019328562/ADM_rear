@@ -8,10 +8,9 @@ POST http://localhost:8000/passport/userLogin HTTP/1.1
 content-type: application/json
 
 {
-    "account": {
+        "name": "account",
         "accountName": "1",
         "password": "111"
-    }
 }
 
 ###

@@ -40,7 +40,7 @@ public class DataController {
     }
 
     @ApiOperation(value = "插入数据集", notes = "插入数据集", httpMethod = "POST")
-    @RequestMapping(value = "/insertDataList", method = RequestMethod.POST, produces =  MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/insertDataList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public CommonResult insertDataList(@RequestBody List<Data> datalist){
         for (Data data:datalist) {
             if(!canInsert(data)){
