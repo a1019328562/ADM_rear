@@ -13,7 +13,109 @@
 
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <script src="js/jquery-3.1.1.min.js"></script>
 
+    <script type="text/javascript">
+        function logout() {
+            sessionStorage.clear();
+            window.location.href="./login.html";
+        }
+        function runModel() {
+            console.log($("#modelSelect option:selected").text());
+            console.log($("#dataSelect option:selected").text());
+            model_s = $("#modelSelect option:selected").text();
+            data_s = $("#dataSelect option:selected").text();
+            document.getElementById("resDiv").style.visibility="visible";
+            document.getElementById("visualDiv").style.height="500px";
+            var myChart = echarts.init(document.getElementById("visualDiv"));
+            myChart.showLoading({
+                text : '正在加载数据'
+            }); 
+            var alldata = [];
+            var err = [];
+            $.ajax({
+                type:"POST",
+                url:"http://116.62.55.220:8000/model/runModel",
+                contentType:"application/x-www-form-urlencoded",           
+                dataType:"json",
+                data:{
+                    "dataType": data_s,
+                    "modelType": model_s
+                }, 
+                // async:false,
+                success:function(datai) {
+                    console.log(datai);
+                    if(datai.status == "success") {
+                        for(var j = 0; j < datai.data.length; j++) {
+                            var timestr = datai.data[j].timestamp.split(/[ ]|-|:/).join();
+                            alldata.push({name:datai.data[j].timestamp.toString(), value:[timestr,datai.data[j].value]});
+                            if(datai.data[j].dataMarkedLabelId != 0)
+                                err.push({name:datai.data[j].timestamp.toString(), value:[timestr,datai.data[j].value]});
+                        }
+                    }
+                    myChart.hideLoading();
+                    option = {
+                        tooltip: {
+                            // trigger: 'axis',
+                            // formatter: function (params) {
+                            //     return params[0] + ' : ' + params.value[1];
+                            // },
+                            // axisPointer: {
+                            //     animation: false
+                            // }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            splitLine: {
+                                show: false
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            boundaryGap: ['20%', '20%'],
+                            splitLine: {
+                                show: false
+                            }
+                        },
+                        series: [{
+                            name: '样本数据',
+                            type: 'line',
+                            showSymbol: false,
+                            hoverAnimation: false,
+                            data: alldata,
+                            itemStyle: {
+                                color: '#20c997'
+                                // color: '#1ab394'
+                            }
+                        }, {
+                            name: '异常数据',
+                            type: 'scatter',
+                            showSymbol: false,
+                            hoverAnimation: false,
+                            symbol: 'pin',
+                            symbolSize: 20,
+                            data: err,
+                            itemStyle: {
+                                color: 'red'
+                            }
+                        }]
+                    };
+                    myChart.setOption(option);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    /*错误信息处理*/
+                    console.log("Ajax error---");
+                    console.log("状态码："+xhr.status);
+                    console.log("状态:"+xhr.readyState);//当前状态,0-未初始化，1-正在载入，2-已经载入，3-数据进行交互，4-完成。
+                    console.log("错误信息:"+xhr.statusText );
+                    console.log("返回响应信息："+xhr.responseText );//这里是详细的信息
+                    console.log("请求状态："+textStatus); 　　　　　　　　
+                    console.log(errorThrown); 　　　　　　　　
+                    console.log("请求失败"); 
+        　　　　} 
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -26,7 +128,7 @@
                     <li class="nav-header">
                         <div class="dropdown profile-element">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="block m-t-xs font-bold">用户名XXX</span>
+                                <span id="username_span" class="block m-t-xs font-bold" style="font-size:18px;">用户名XXX</span>
                                 <span class="text-muted text-xs block">菜单
                                     <b class="caret"></b>
                                 </span>
@@ -37,7 +139,7 @@
                                 </li>
                                 <li class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="./login.html">退出登录</a>
+                                    <a class="dropdown-item" onclick="logout()">退出登录</a>
                                 </li>
                             </ul>
                         </div>
@@ -48,12 +150,12 @@
                             <span class="nav-label">样本管理</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="./model.html">
                             <i class="fa fa-th-large"></i>
                             <span class="nav-label">模型训练</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="active">
                         <a href="./anomaly.html">
                             <i class="fa fa-th-large"></i>
@@ -81,8 +183,8 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="./login.html">
-                                <i class="fa fa-sign-out"></i> Log out
+                            <a onclick="logout()">
+                                <i class="fa fa-sign-out"></i> 退出登录
                             </a>
                         </li>
                     </ul>
@@ -120,10 +222,7 @@
                                         <label class="col-sm-2 col-form-label">模型</label>
 
                                         <div class="col-sm-10">
-                                            <select class="form-control m-b" name="model">
-                                                <option>ARMA</option>
-                                                <option>IsolationForest</option>
-                                                <option>HOBS</option>
+                                            <select class="form-control m-b" name="model" id="modelSelect">
                                             </select>
                                         </div>
                                     </div>
@@ -131,10 +230,7 @@
                                     <div class="form-group  row">
                                         <label class="col-sm-2 col-form-label">数据来源</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control m-b" name="model">
-                                                <option>时序数据源1</option>
-                                                <option>时序数据源2</option>
-                                                <option>时序数据源3</option>
+                                            <select class="form-control m-b" name="model" id="dataSelect">
                                             </select>
                                         </div>
                                     </div>
@@ -142,7 +238,7 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-4 col-sm-offset-2">
-                                            <button class="btn btn-primary" type="button">确认配置</button>
+                                            <button id="runBtn" style="visibility: hidden;" class="btn btn-primary" type="button" onclick="runModel()">确认配置</button>
                                         </div>
                                     </div>
                                 </form>
@@ -150,31 +246,26 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox ">
-                        <div class="ibox-title">
-                            <h5>实时监控</h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
+                <div class="row" id="resDiv" style="visibility: hidden;">
+                    <div class="col-lg-12">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>检测结果</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="ibox-content">
-                            <div class="flot-chart">
-                                <div class="flot-chart-content" id="flot-line-chart-moving"></div>
-                            </div>
+                            <div class="ibox-content text-center" id="visualDiv" style="height: 500px;"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="footer">
                 <!-- <div class="pull-right">
                     10GB of
@@ -189,121 +280,81 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="js/jquery-3.1.1.min.js"></script>
+    <!-- <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script> -->
+    <script type="text/javascript">
+        // js提速写法
+        // document.write("<scr"+"ipt src=\"js/jquery-3.1.1.min.js\"></sc"+"ript>");
+        document.write("<scr"+"ipt src=\"js/popper.min.js\"></sc"+"ript>");
+        document.write("<scr"+"ipt src=\"js/bootstrap.min.js\"></sc"+"ript>");
+        document.write("<scr"+"ipt src=\"js/plugins/metisMenu/jquery.metisMenu.js\"></sc"+"ript>");
+        document.write("<scr"+"ipt src=\"js/plugins/slimscroll/jquery.slimscroll.min.js\"></sc"+"ript>");
+    </script>
 
     <!-- Custom and plugin javascript -->
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
+    <!-- <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script> -->
+    <script type="text/javascript">
+        document.write("<scr"+"ipt src=\"js/inspinia.js\"></sc"+"ript>");
+        document.write("<scr"+"ipt src=\"js/plugins/pace/pace.min.js\"></sc"+"ript>");
+    </script>
+    <script type="text/javascript">
+        document.write("<scr"+"ipt src=\"js/echarts.min.js\"></sc"+"ript>")
+    </script>
     <!-- Flot -->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <!-- <script src="js/plugins/flot/jquery.flot.js"></script>
     <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
     <script src="js/plugins/flot/jquery.flot.resize.js"></script>
     <script src="js/plugins/flot/jquery.flot.pie.js"></script>
-    <script src="js/plugins/flot/jquery.flot.time.js"></script>
+    <script src="js/plugins/flot/jquery.flot.time.js"></script> -->
 
     <script>
         window.onload = function () {
-            $(function () {
-
-                var container = $("#flot-line-chart-moving");
-
-                // Determine how many data points to keep based on the placeholder's initial size;
-                // this gives us a nice high-res plot while avoiding more than one point per pixel.
-
-                var maximum = container.outerWidth() / 2 || 300;
-
-                //
-
-                var data = [];
-
-                function getRandomData() {
-
-                    if (data.length) {
-                        data = data.slice(1);
-                    }
-
-                    while (data.length < maximum) {
-                        var previous = data.length ? data[data.length - 1] : 50;
-                        var y = previous + Math.random() * 10 - 5;
-                        data.push(y < 0 ? 0 : y > 100 ? 100 : y);
-                    }
-
-                    // zip the generated y values with the x values
-
-                    var res = [];
-                    for (var i = 0; i < data.length; ++i) {
-                        res.push([i, data[i]])
-                    }
-
-                    return res;
-                }
-
-                series = [{
-                    data: getRandomData(),
-                    lines: {
-                        fill: true
-                    }
-                }];
-
-
-                var plot = $.plot(container, series, {
-                    grid: {
-
-                        color: "#999999",
-                        tickColor: "#D4D4D4",
-                        borderWidth: 0,
-                        minBorderMargin: 20,
-                        labelMargin: 10,
-                        backgroundColor: {
-                            colors: ["#ffffff", "#ffffff"]
-                        },
-                        margin: {
-                            top: 8,
-                            bottom: 20,
-                            left: 20
-                        },
-                        markings: function (axes) {
-                            var markings = [];
-                            var xaxis = axes.xaxis;
-                            for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
-                                markings.push({
-                                    xaxis: {
-                                        from: x,
-                                        to: x + xaxis.tickSize
-                                    },
-                                    color: "#fff"
-                                });
-                            }
-                            return markings;
+            if(sessionStorage.getItem('userName') == null) {
+                alert("请先登录！");
+                window.location.href="./login.html";
+            } else {
+                document.getElementById("username_span").innerHTML = sessionStorage.getItem('userName');
+            }
+            $.ajax({ 
+                type:"GET", 
+                url:"http://116.62.55.220:8000/data/selectAllDataType", 
+                contentType:"application/json",           
+                dataType:"json",  // 预期服务器返回的数据类型。如果不指定，jQuery 将自动根据 HTTP 包 MIME 信息来智能判断，比如XML MIME类型就被识别为XML。
+                // async:false,
+                success:function(data){ 
+                    if (data.status == "success") {
+                        var dataOption = "";
+                        for(var i = 0; i < data.data.length; i++) {
+                            dataOption += "<option>" + data.data[i].name + "</option>";
                         }
-                    },
-                    colors: ["#1ab394"],
-                    xaxis: {
-                        tickFormatter: function () {
-                            return "";
-                        }
-                    },
-                    yaxis: {
-                        min: 0,
-                        max: 110
-                    },
-                    legend: {
-                        show: true
+                        document.getElementById("dataSelect").innerHTML = dataOption;
+                    } else {
+                        alert("获取样本集失败");   
                     }
-                });
-
-                // Update the random dataset at 25FPS for a smoothly-animating chart
-
-                setInterval(function updateRandom() {
-                    series[0].data = getRandomData();
-                    plot.setData(series);
-                    plot.draw();
-                }, 100);
-
+                } 
+            });
+            $.ajax({ 
+                type:"GET", 
+                url:"http://116.62.55.220:8000/model/selectAllModel", 
+                contentType:"application/json",           
+                dataType:"json",  // 预期服务器返回的数据类型。如果不指定，jQuery 将自动根据 HTTP 包 MIME 信息来智能判断，比如XML MIME类型就被识别为XML。
+                // async:false,
+                success:function(data){ 
+                    if (data.status == "success") {
+                        var modelOption = "";
+                        for(var i = 0; i < data.data.length; i++) {
+                            modelOption += "<option>" + data.data[i].name + "</option>";
+                        }
+                        document.getElementById("modelSelect").innerHTML = modelOption;
+                        document.getElementById("runBtn").style.visibility = "visible";
+                    } else {
+                        alert("获取模型集失败");   
+                    }
+                } 
             });
         }
     </script>

@@ -16,6 +16,13 @@
 
     <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+    <script type="text/javascript">
+        function logout() {
+            sessionStorage.clear();
+            window.location.href="./login.html";
+        }
+    </script>
 </head>
 
 <body>
@@ -28,7 +35,7 @@
                     <li class="nav-header">
                         <div class="dropdown profile-element">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="block m-t-xs font-bold">用户名XXX</span>
+                                <span id="username_span" class="block m-t-xs font-bold" style="font-size:18px;">用户名XXX</span>
                                 <span class="text-muted text-xs block">菜单
                                     <b class="caret"></b>
                                 </span>
@@ -39,7 +46,7 @@
                                 </li>
                                 <li class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="./login.html">退出登录</a>
+                                    <a class="dropdown-item" onclick="logout()">退出登录</a>
                                 </li>
                             </ul>
                         </div>
@@ -50,12 +57,12 @@
                             <span class="nav-label">样本管理</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="./model.html">
                             <i class="fa fa-th-large"></i>
                             <span class="nav-label">模型训练</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="./anomaly.html">
                             <i class="fa fa-th-large"></i>
@@ -83,8 +90,8 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="./login.html">
-                                <i class="fa fa-sign-out"></i> Log out
+                            <a onclick="logout()">
+                                <i class="fa fa-sign-out"></i> 退出登录
                             </a>
                         </li>
                     </ul>
@@ -118,18 +125,26 @@
                             <div class="ibox-content">
                                 <form method="get">
                                     <div class="form-group  row">
-                                        <label class="col-sm-2 col-form-label">用户名</label>
+                                        <label class="col-sm-2 col-form-label">账号名</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" disabled="" value="用户名XXX" class="form-control">
+                                            <input id="accountname_input" type="text" disabled="" value="账号名XXX" class="form-control">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">工号</label>
                                         <div class="col-sm-10">
-                                            <input type="text" disabled="" value="1" class="form-control">
+                                            <input id="jobnumber_input" type="text" disabled="" value="1" class="form-control">
                                             <!-- <span class="form-text m-b-none">这里可以写一些提示信息.</span> -->
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group  row">
+                                        <label class="col-sm-2 col-form-label">用户名</label>
+
+                                        <div class="col-sm-10">
+                                            <input id="username_input" type="text" value="用户名XXX" class="form-control">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -139,17 +154,17 @@
                                         <div class="col-sm-10">
                                             <div class="i-checks">
                                                 <label>
-                                                    <input type="radio" value="male" name="gender" checked="">
+                                                    <input id="man_check" type="radio" value="1" name="gender">
                                                     <i></i>男 </label>
                                             </div>
                                             <div class="i-checks">
                                                 <label>
-                                                    <input type="radio" checked="" value="female" name="gender">
+                                                    <input id="woman_check" type="radio" value="0" name="gender">
                                                     <i></i> 女 </label>
                                             </div>
                                             <div class="i-checks">
                                                 <label>
-                                                    <input type="radio" checked="" value="secret" name="gender">
+                                                    <input id="secret_check" type="radio" value="2" name="gender">
                                                     <i></i> 保密 </label>
                                             </div>
                                         </div>
@@ -159,21 +174,21 @@
                                         <label class="col-sm-2 col-form-label">电话</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" value="1234567890" class="form-control">
+                                            <input id="tel_input" type="text" value="1234567890" class="form-control">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
-                                    <div class="form-group  row">
+                                    <!-- <div class="form-group  row">
                                         <label class="col-sm-2 col-form-label">邮箱</label>
 
                                         <div class="col-sm-10">
                                             <input type="text" value="123@123.com" class="form-control">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group row">
                                         <div class="col-sm-4 col-sm-offset-2">
-                                            <button class="btn btn-primary" type="button">保存更改</button>
+                                            <button class="btn btn-primary" type="button" id="save_btn">保存更改</button>
                                         </div>
                                     </div>
                                 </form>
@@ -208,10 +223,66 @@
     <!-- iCheck -->
     <script src="js/plugins/iCheck/icheck.min.js"></script>
     <script>
+        function genderChecked() {
+            var inputSelect = document.getElementsByName('gender');
+            var value = '';
+            for (var i = 0, len = inputSelect.length; i < len; i++) {
+                if (inputSelect[i].checked && inputSelect[i].type === 'radio') {
+                    value = inputSelect[i].value;
+                }
+            }
+            return value;
+        }
         window.onload = function () {
+            if(sessionStorage.getItem('userName') == null) {
+                alert("请先登录！");
+                window.location.href="./login.html";
+            } else {
+                document.getElementById("username_span").innerHTML = sessionStorage.getItem('userName');  // 菜单栏用户名
+                document.getElementById("accountname_input").value = sessionStorage.getItem('accountName'); // 表单账号名
+                document.getElementById("jobnumber_input").value = sessionStorage.getItem('jobNumber');  // 表单工号
+                document.getElementById("username_input").value = sessionStorage.getItem('userName');  // 表单用户名
+                // 表单性别
+                gender = sessionStorage.getItem('gender');
+                if(gender == 0) {
+                    $("#woman_check").prop('checked','true');
+                } else if(gender == 1) {
+                    $("#man_check").prop('checked','true');
+                } else if(gender == 2) {
+                    $("#secret_check").prop('checked','true');
+                }
+                document.getElementById("tel_input").value = sessionStorage.getItem('telephone');   // 表单电话
+            }
             $('.i-checks').iCheck({
                 radioClass: 'iradio_square-green',
             });
+            document.getElementById("save_btn").onclick = function() {
+                $.ajax({ 
+                    type:"POST", 
+                    url:"http://116.62.55.220:8000/passport/editUserProfile", 
+                    contentType:"application/json",           
+                    dataType:"json",  // 预期服务器返回的数据类型。如果不指定，jQuery 将自动根据 HTTP 包 MIME 信息来智能判断，比如XML MIME类型就被识别为XML。
+                    data:JSON.stringify({
+                        "gender": genderChecked(),
+                        "id":sessionStorage.getItem('id'),
+                        "jobNumber":sessionStorage.getItem('jobNumber'),
+                        "telephone":document.getElementById("tel_input").value,
+                        "userName":document.getElementById("username_input").value
+                    }), 
+                    success:function(data){ 
+                        console.log("data= ",data);
+                        if (data.status == "success") {
+                            sessionStorage.setItem('userName', data.data.userName);
+                            sessionStorage.setItem('telephone', data.data.telephone);
+                            sessionStorage.setItem('gender', data.data.gender);
+                            alert("保存成功");
+                            location.reload();
+                        } else {
+                            alert("修改失败");
+                        }
+                    } 
+                }); 
+            }
         }
     </script>
 
