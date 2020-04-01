@@ -13,8 +13,8 @@ public enum CommonError implements BaseError {
 
     NO_SACH_TYPE_ERROR(30001,"无该参数类型"),
     PARAMETER_IS_NULL(30002,"参数为空"),
-    DATATYPE_IS_EXIST(30003,"数据类型已经存在"),
-    DATATYPE_IS_NOT_EXIST(30004,"数据类型不存在"),
+    DATATYPE_IS_EXIST(30003,"样本集已经存在"),
+    DATATYPE_IS_NOT_EXIST(30004,"样本集不存在"),
 
     // 通用的错误类型
     PARAMETER_VALIDATION_ERROR(10001, "参数不合法"),
@@ -24,7 +24,7 @@ public enum CommonError implements BaseError {
     MAX_UPLOAD_ERROR(40005, "文件大小超过限制"),
     OPERATION_ERROR(40006, "操作错误"),
     NO_PERMISSION_ERROR(40007, "您没有权限执行此操作"),
-
+    ALGORITHM_OPERATION_ERROR(40008, "算法执行错误"),
     // 用户服务相关的错误类型
     ACCOUNT_NULL_ERROR(20001, "账户名不能为空"),
     ACCOUNT_EXISTS(20002, "账户名已存在"),

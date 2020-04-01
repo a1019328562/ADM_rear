@@ -8,6 +8,6 @@ package org.zju.adm.common.constrant;
 public class GlobalConstant {
 
     public static final String SESSION_USER_ID = "SESSION_USER_ID";
-    public static final String SERVICE_IP = "116.62.55.220";
+    public static final String SERVICE_IP = "192.168.229.1";
     public static final Integer SERVICE_PORT = 8079;
 }

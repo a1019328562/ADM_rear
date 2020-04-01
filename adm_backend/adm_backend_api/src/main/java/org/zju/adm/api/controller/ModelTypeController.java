@@ -6,10 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.zju.adm.common.CommonResult;
 import org.zju.adm.common.constrant.GlobalConstant;
 import org.zju.adm.common.exception.CommonError;
@@ -22,10 +19,7 @@ import springfox.documentation.spring.web.json.Json;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Api(value = "模型操作", tags = {"模型相关接口"})
 @RestController
@@ -45,24 +39,35 @@ public class ModelTypeController {
         return CommonResult.success(result);
     }
 
-    @ApiOperation(value = "运行模型", notes = "指定数据集以及模型类型，进行异常检测", httpMethod = "Post")
+    @ApiOperation(value = "运行模型", notes = "指定数据集以及模型类型，进行异常检测", httpMethod = "POST")
     @RequestMapping(value = "/runModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CommonResult runModel(@RequestBody DataType dataType,@RequestBody ModelType modelType){
-        List<Data> data = dataService.selectAllData();
+    public CommonResult runModel(@RequestParam("dataType") String dataType, @RequestParam("modelType") String modelType){
+        boolean dataTypeIsExist = dataService.queryDataTypeIsExistByName(dataType);
+        if(!dataTypeIsExist){
+            return CommonResult.failure(CommonError.DATATYPE_IS_NOT_EXIST);
+        }
+        Byte dataTypeId = dataService.queryDataTypeIdByName(dataType);
+        List<Data> data = dataService.selectAppointedData(dataTypeId);
+
         List<Integer> predictList = callAlgorithm(dataType,data,modelType);
+        if(predictList==null) return CommonResult.failure(CommonError.ALGORITHM_OPERATION_ERROR);
         for(int i = 0;i< predictList.size();i++){
             data.get(i).setDataPredictedLabelId((byte)predictList.get(i).intValue());
         }
         return CommonResult.success(data);
     }
 
-    public static List<Integer> callAlgorithm(DataType dataType, List<Data> data, ModelType model){
+    public static List<Integer> callAlgorithm(String dataType, List<Data> data, String model){
         HashMap<String,Object> input = new HashMap<String,Object>();
-        input.put("data_type",dataType.getName());
-        input.put("model_type",model.getName());
+        input.put("data_type",dataType);
+        input.put("model_type",model);
         input.put("data",data);
-        String res = callAlgorithm0(JSONArray.toJSONString(input));
-        return JSON.parseArray(res,Integer.class);
+        String Str = callAlgorithm0(JSONArray.toJSONString(input));
+        Map<String,Object> res = (Map<String,Object>)JSON.parse(Str);
+        if(res.get("is_successed").toString().toLowerCase().equals("true")){
+            return (List<Integer>)res.get("predicted");
+        }
+        else return null;
     }
 
     public static String callAlgorithm0(String data){
@@ -102,8 +107,8 @@ public class ModelTypeController {
     }
 
     public static void main(String[] args) {
+//        new ModelTypeController().runModel("type1","model1");
         List<Data> data = new ArrayList<>();
-
         Data val = new Data();
         val.setId(1);
         val.setTimestamp(new Date());
@@ -114,7 +119,12 @@ public class ModelTypeController {
         val.setTimestamp(new Date());
         val.setValue(1000.0);
         data.add(val);
-        String ss = JSONArray.toJSONString(data);
+        HashMap<String,Object> input = new HashMap<String,Object>();
+        input.put("data",data);
+        input.put("status","success");
+        String ss = JSONArray.toJSONString(input);
+        Map<String,Object> output = (Map<String,Object>)JSON.parse(ss);
+        List<Data> resData =  (List<Data>)output.get("data");
         List<Data> data2 = JSON.parseArray(ss,Data.class);
         System.out.println(data2.get(0));
         System.out.println(ss);
