@@ -3,8 +3,8 @@ server:
 spring:
   datasource: # 数据源的相关配置
     url: jdbc:mysql://rm-bp1673j5245w1f4y2wo.mysql.rds.aliyuncs.com:3306/adm?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-    username: app_user
-    password: NvUyzlY@x9TQD!vc
+    username: root
+    password: 123456
   redis:
   # 单机模式
     database: 1

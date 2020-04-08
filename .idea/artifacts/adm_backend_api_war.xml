@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="adm_backend_api-1.0-SNAPSHOT.war">
+    <root id="archive" name="adm_backend.war">
       <element id="artifact" artifact-name="adm_backend_api:war exploded" />
     </root>
   </artifact>

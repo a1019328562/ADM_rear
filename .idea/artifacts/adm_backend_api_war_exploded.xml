@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="adm_backend_api:war exploded">
-    <output-path>$PROJECT_DIR$/adm_backend/adm_backend_api/target/adm_backend_api-1.0-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/adm_backend/adm_backend_api/target/adm_backend</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
@@ -47,6 +47,7 @@
           <element id="library" level="project" name="Maven: tk.mybatis:mapper-spring:1.1.5" />
           <element id="library" level="project" name="Maven: tk.mybatis:mapper-extra:1.1.5" />
           <element id="library" level="project" name="Maven: tk.mybatis:mapper-spring-boot-autoconfigure:2.1.5" />
+          <element id="library" level="project" name="Maven: com.gitee.sunchenbin.mybatis.actable:mybatis-enhance-actable:1.0.3" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:2.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:2.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.2.4.RELEASE" />
@@ -97,7 +98,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/adm_backend/adm_backend_api/target/adm_backend_api-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/adm_backend/adm_backend_api/target/adm_backend/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="adm_backend_api/web/Web" />
     </root>

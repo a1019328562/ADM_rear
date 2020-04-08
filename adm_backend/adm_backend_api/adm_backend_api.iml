@@ -53,6 +53,7 @@
     <orderEntry type="library" name="Maven: tk.mybatis:mapper-extra:1.1.5" level="project" />
     <orderEntry type="library" name="Maven: tk.mybatis:mapper-spring-boot-autoconfigure:2.1.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:4.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.gitee.sunchenbin.mybatis.actable:mybatis-enhance-actable:1.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.2.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.2.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.2.4.RELEASE" level="project" />

@@ -2,7 +2,6 @@ package org.zju.adm.pojo.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.apache.catalina.User;
 import org.zju.adm.pojo.Account;
 import org.zju.adm.pojo.Users;
 
